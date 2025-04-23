@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             TeambappprototypeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "planlæg",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
