@@ -1,27 +1,29 @@
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+package com.example.teamb_app_prototype.viewmodel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.teamb_app_prototype.data.StroemPriserHåndtering
-import kotlinx.coroutines.Dispatchers
+import com.example.teamb_app_prototype.data.MinStroem
+import com.example.teamb_app_prototype.data.RetrofitInstance
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class MinStroemViewModel : ViewModel() {
-    private val StroemPriserHåndtering = StroemPriserHåndtering()
-    var currentPrices: String by mutableStateOf("yohoo")
-        private set
+    private val _strømpriser = MutableStateFlow<List<MinStroem>>(emptyList())
+    val strømpriser = _strømpriser.asStateFlow()
 
-    fun fetchPrices() {
+    init {
+        fetchPrices()
+    }
+
+    private fun fetchPrices() {
         viewModelScope.launch {
             try {
-                val data = withContext(Dispatchers.IO) {
-                    currentPrices = StroemPriserHåndtering.getNewPrices().date
-                }
+                val result = RetrofitInstance.api.getPrices()
+                _strømpriser.value = result
             } catch (e: Exception) {
-                currentPrices = e.message.toString()
+
             }
         }
     }

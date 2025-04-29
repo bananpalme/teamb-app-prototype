@@ -1,11 +1,12 @@
 package com.example.teamb_app_prototype.ui
 
 import ApparatViewModel
-import MinStroemViewModel
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,11 +22,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -39,8 +46,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.example.teamb_app_prototype.ui.theme.TeambappprototypeTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.teamb_app_prototype.data.MinStroem
+import com.example.teamb_app_prototype.viewmodel.MinStroemViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.math.log
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,23 +128,20 @@ fun DageHeader() {
 
 @Composable
 fun GrafOversigt(viewModel: MinStroemViewModel = viewModel()) {
+    val priser by viewModel.strømpriser.collectAsState()
 
-    Text(text = viewModel.currentPrices)
-
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = 32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Column {
-
-            Text("Elpriser 10/04")
-            Column(modifier = Modifier
-                .background(Color.LightGray)
-                .width(330.dp)
-                .height(250.dp)) { }
+        LazyColumn(modifier = Modifier.padding(16.dp).height(300.dp)) {
+            items(priser) { pris ->
+                Column(modifier = Modifier.padding(8.dp)) {
+                    Text(text = pris.date, style = MaterialTheme.typography.titleMedium)
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(text = pris.price.toString(), style = MaterialTheme.typography.bodyMedium)
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(text = pris.farve.toString(), style = MaterialTheme.typography.bodyMedium)
+                }
+            }
         }
 
-    }
 }
 
 @Composable
@@ -182,6 +192,7 @@ fun ApparatOversigt(viewModel: ApparatViewModel = viewModel()) {
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
