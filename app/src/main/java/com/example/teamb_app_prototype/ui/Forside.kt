@@ -128,7 +128,7 @@ fun DageHeader() {
 
 @Composable
 fun GrafOversigt(viewModel: MinStroemViewModel = viewModel()) {
-    val priser by viewModel.strømpriser.collectAsState()
+    val priser by viewModel.strømpriser.collectAsState() //yo
 
         LazyColumn(modifier = Modifier.padding(16.dp).height(300.dp)) {
             items(priser) { pris ->
