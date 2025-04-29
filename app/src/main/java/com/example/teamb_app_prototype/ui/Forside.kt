@@ -1,15 +1,14 @@
 package com.example.teamb_app_prototype.ui
 
 import ApparatViewModel
+import MinStroemViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -93,7 +92,7 @@ fun DageHeader() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .clickable { valgtDag = dag } // Når man klikker, vælger vi dagen
+                    .clickable { valgtDag = dag }
                     .padding(horizontal = 8.dp)
             ) {
                 Text(
@@ -107,7 +106,7 @@ fun DageHeader() {
                             .background(Color.Blue)
                     )
                 } else {
-                    Spacer(modifier = Modifier.height(2.dp)) // holder højden ens
+                    Spacer(modifier = Modifier.height(2.dp))
                 }
             }
         }
@@ -115,12 +114,16 @@ fun DageHeader() {
 }
 
 @Composable
-fun GrafOversigt() {
+fun GrafOversigt(viewModel: MinStroemViewModel = viewModel()) {
+
+    Text(text = viewModel.currentPrices)
+
     Column(modifier = Modifier
         .fillMaxWidth()
         .padding(vertical = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
         Column {
+
             Text("Elpriser 10/04")
             Column(modifier = Modifier
                 .background(Color.LightGray)
@@ -160,7 +163,8 @@ fun ApparatOversigt(viewModel: ApparatViewModel = viewModel()) {
                         modifier = Modifier
                             .size(90.dp)
                             .background(Color(0x52BABABA), shape = RoundedCornerShape(16.dp))
-                            .padding(8.dp),
+                            .padding(8.dp)
+                        ,
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
