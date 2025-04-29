@@ -5,13 +5,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-object RetrofitInstance {
-    val api: MinStroemApi by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://api.minstroem.app/thirdParty/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(MinStroemApi::class.java)
-    }
+class RetrofitInstance {
+    private val baseURL = "https://api.minstroem.app/thirdParty"
 
+    val retrofitClient = Retrofit.Builder()
+        .baseUrl(baseURL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val apiService = retrofitClient.create(MinStroemApi::class.java)
 }
