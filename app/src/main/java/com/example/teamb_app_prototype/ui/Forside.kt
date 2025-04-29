@@ -1,0 +1,188 @@
+package com.example.teamb_app_prototype.ui
+
+import ApparatViewModel
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.teamb_app_prototype.ui.theme.TeambappprototypeTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            TeambappprototypeTheme {
+                Forside()
+            }
+        }
+    }
+}
+
+
+@Composable
+fun Forside() {
+    Column(modifier = Modifier.fillMaxSize()) {
+
+        Text("")
+
+        DageHeader()
+
+        GrafOversigt()
+
+        ApparatOversigt()
+
+    }
+
+}
+
+@Composable
+fun DageHeader() {
+    var valgtDag by remember { mutableStateOf("I dag")}
+
+    val dage = listOf("I dag", "Fredag", "Lørdag", "Søndag", "Mandag")
+
+    Row(
+        horizontalArrangement = Arrangement.SpaceAround,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
+    ) {
+        dage.forEach { dag ->
+            val linjeBredde by animateDpAsState(
+                targetValue = if (dag == valgtDag) 24.dp else 0.dp,
+                label = "linjeanimation"
+            )
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .clickable { valgtDag = dag } // Når man klikker, vælger vi dagen
+                    .padding(horizontal = 8.dp)
+            ) {
+                Text(
+                    text = dag
+                )
+                if (dag == valgtDag) {
+                    Box(
+                        modifier = Modifier
+                            .height(2.dp)
+                            .width(linjeBredde)
+                            .background(Color.Blue)
+                    )
+                } else {
+                    Spacer(modifier = Modifier.height(2.dp)) // holder højden ens
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun GrafOversigt() {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Column {
+            Text("Elpriser 10/04")
+            Column(modifier = Modifier
+                .background(Color.LightGray)
+                .width(330.dp)
+                .height(250.dp)) { }
+        }
+
+    }
+}
+
+@Composable
+fun ApparatOversigt(viewModel: ApparatViewModel = viewModel()) {
+    val apparater by viewModel.apparater.collectAsState()
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column {
+            Text(
+                text = "Planlæg apparater",
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                modifier = Modifier
+                    .width(330.dp)
+                    .height(340.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                items(apparater) { apparat ->
+                    Column(
+                        modifier = Modifier
+                            .size(90.dp)
+                            .background(Color(0x52BABABA), shape = RoundedCornerShape(16.dp))
+                            .padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = apparat.billedeResId),
+                            contentDescription = apparat.navn,
+                            modifier = Modifier
+                                .size(50.dp)
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(text = apparat.navn, fontSize = 10.sp)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    TeambappprototypeTheme {
+        Forside()
+    }
+}
