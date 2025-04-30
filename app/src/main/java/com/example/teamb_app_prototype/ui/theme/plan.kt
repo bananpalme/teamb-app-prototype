@@ -213,7 +213,7 @@ fun PlanlaegOvnScreen(modifier: Modifier = Modifier) {
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp)
                     ) {
-                        Text(text = "Planlæg")
+                        Text(text = "Planlæg nu")
                     }
                 }
             }
