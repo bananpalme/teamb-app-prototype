@@ -1,12 +1,10 @@
 package com.example.teamb_app_prototype.ui
 
 import ApparatViewModel
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,18 +20,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -47,31 +38,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
 import com.example.teamb_app_prototype.ui.theme.TeambappprototypeTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.teamb_app_prototype.R
-import com.example.teamb_app_prototype.data.MinStroem
 import com.example.teamb_app_prototype.viewmodel.MinStroemViewModel
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import kotlin.math.log
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TeambappprototypeTheme {
-                Forside()
-            }
-        }
-    }
-}
-
 
 @Composable
-fun Forside() {
+fun Forside(onTilfoejClick: () -> Unit = {}, onApparatClick: () -> Unit = {}) {
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color(0xFFF3F2F8))) {
@@ -82,7 +55,7 @@ fun Forside() {
 
         GrafOversigt()
 
-        ApparatOversigt()
+        ApparatOversigt(onTilfoejClick = onTilfoejClick, onApparatClick = onApparatClick)
 
     }
 
@@ -168,7 +141,11 @@ fun GrafOversigt(viewModel: MinStroemViewModel = viewModel()) {
 }
 
 @Composable
-fun ApparatOversigt(viewModel: ApparatViewModel = viewModel()) {
+fun ApparatOversigt(
+    viewModel: ApparatViewModel = viewModel(),
+    onTilfoejClick: () -> Unit = {},
+    onApparatClick: () -> Unit = {}
+) {
     val apparater by viewModel.apparater.collectAsState()
 
     Column(
@@ -194,14 +171,20 @@ fun ApparatOversigt(viewModel: ApparatViewModel = viewModel()) {
                 itemsIndexed(apparater) {index, apparat ->
                     val isFirst = index == 0
                     val backgroundColor = if (isFirst) Color(0xFFDAEBFF) else Color(0x55bababa)
-
+                    val onClick = {
+                        if (isFirst) {
+                            onTilfoejClick()
+                        } else {
+                            onApparatClick()
+                        }
+                    }
 
 
                     Column(
                         modifier = Modifier
                             .size(90.dp)
                             .background(backgroundColor, shape = RoundedCornerShape(16.dp))
-
+                            .clickable { onClick() }
                             .padding(8.dp)
                         ,
                         horizontalAlignment = Alignment.CenterHorizontally,

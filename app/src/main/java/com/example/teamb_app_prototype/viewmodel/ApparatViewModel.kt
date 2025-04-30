@@ -13,13 +13,16 @@ class ApparatViewModel : ViewModel() {
             Apparat("Opvaskemaskine", R.drawable.opvaskemaskine),
             Apparat("Tørretumbler", R.drawable.tumbler),
             Apparat("Vaskemaskine 2", R.drawable.vaskemaskine),
-            Apparat("Opvaskemaskine", R.drawable.opvaskemaskine),
-            Apparat("Opvaskemaskine", R.drawable.opvaskemaskine),
-            Apparat("Opvaskemaskine", R.drawable.opvaskemaskine),
-            Apparat("Opvaskemaskine", R.drawable.opvaskemaskine),
-            Apparat("Opvaskemaskine", R.drawable.opvaskemaskine),
-            Apparat("Opvaskemaskine", R.drawable.opvaskemaskine),
-            Apparat("Opvaskemaskine", R.drawable.opvaskemaskine)
+            Apparat("Opvaskemaskine 1", R.drawable.opvaskemaskine),
+            Apparat("Opvaskemaskine 2", R.drawable.opvaskemaskine),
+            Apparat("Opvaskemaskine 3", R.drawable.opvaskemaskine),
+            Apparat("Opvaskemaskine 4", R.drawable.opvaskemaskine),
+            Apparat("Opvaskemaskine 5", R.drawable.opvaskemaskine),
+            Apparat("Opvaskemaskine 6", R.drawable.opvaskemaskine),
+            Apparat("Opvaskemaskine 7", R.drawable.opvaskemaskine),
+            Apparat("Tørretumbler", R.drawable.tumbler),
+            Apparat("Tørretumbler", R.drawable.tumbler),
+            Apparat("Tørretumbler", R.drawable.tumbler)
         )
     )
     val apparater: StateFlow<List<Apparat>> = _apparater

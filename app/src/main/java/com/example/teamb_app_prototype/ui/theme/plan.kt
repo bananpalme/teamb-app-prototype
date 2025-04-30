@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PlanlaegOvnScreen(modifier: Modifier = Modifier) {
+fun PlanlaegOvnScreen(modifier: Modifier = Modifier, onBackClick: () -> Unit = {}) {
     var tidligstText by remember { mutableStateOf("Tidligst: dato: 1/05 og kl: 08:45") }
     var senestText by remember { mutableStateOf("Senest: dato: 2/05 og kl: 01:30") }
     var varighedText by remember { mutableStateOf("") }
@@ -100,7 +100,7 @@ fun PlanlaegOvnScreen(modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .size(30.dp)
                             .clickable {
-                                (context as? Activity)?.finish()
+                                onBackClick()
                             }
 
                     )
