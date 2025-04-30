@@ -26,6 +26,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -190,11 +191,17 @@ fun ApparatOversigt(viewModel: ApparatViewModel = viewModel()) {
                 verticalArrangement = Arrangement.spacedBy(20.dp),
                 horizontalArrangement = Arrangement.spacedBy(20.dp),
             ) {
-                items(apparater) { apparat ->
+                itemsIndexed(apparater) {index, apparat ->
+                    val isFirst = index == 0
+                    val backgroundColor = if (isFirst) Color(0xFFDAEBFF) else Color(0x55bababa)
+
+
+
                     Column(
                         modifier = Modifier
                             .size(90.dp)
-                            .background(Color(0x52BABABA), shape = RoundedCornerShape(16.dp))
+                            .background(backgroundColor, shape = RoundedCornerShape(16.dp))
+
                             .padding(8.dp)
                         ,
                         horizontalAlignment = Alignment.CenterHorizontally,
