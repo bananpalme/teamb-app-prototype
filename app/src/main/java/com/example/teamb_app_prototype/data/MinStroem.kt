@@ -5,3 +5,5 @@ data class MinStroem(
     val date: String,
     val farve: String? = null
 )
+
+//test

@@ -24,3 +24,5 @@ class ApparatViewModel : ViewModel() {
     )
     val apparater: StateFlow<List<Apparat>> = _apparater
 }
+
+//test

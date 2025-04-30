@@ -28,3 +28,5 @@ class MinStroemViewModel : ViewModel() {
         }
     }
 }
+
+//test

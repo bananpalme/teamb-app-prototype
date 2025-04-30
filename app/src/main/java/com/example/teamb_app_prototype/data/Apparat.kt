@@ -4,3 +4,5 @@ class Apparat(
     val navn: String,
     val billedeResId: Int
 )
+
+//test
