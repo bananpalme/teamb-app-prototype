@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.teamb_app_prototype.ui.theme.TeambappprototypeTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.teamb_app_prototype.R
 import com.example.teamb_app_prototype.data.MinStroem
 import com.example.teamb_app_prototype.viewmodel.MinStroemViewModel
 import java.time.LocalDateTime
@@ -70,7 +71,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Forside() {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(Color(0xFFF3F2F8))) {
 
         Text("")
 
@@ -94,7 +97,7 @@ fun DageHeader() {
         horizontalArrangement = Arrangement.SpaceAround,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp)
+            .padding(16.dp)
     ) {
         dage.forEach { dag ->
             val linjeBredde by animateDpAsState(
@@ -128,7 +131,26 @@ fun DageHeader() {
 
 @Composable
 fun GrafOversigt(viewModel: MinStroemViewModel = viewModel()) {
-    val priser by viewModel.strømpriser.collectAsState()
+
+    Column(modifier = Modifier
+        .height(300.dp)
+        .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+        ) {
+        Column {
+            Text("Elpriser 10/04")
+            Image(
+                painter = painterResource(id = R.drawable.stroemgraf),
+                contentDescription = "graf over el priser",
+                modifier = Modifier
+                    .width(350.dp)
+                    .height(200.dp)
+            )
+        }
+    }
+
+    /*val priser by viewModel.strømpriser.collectAsState()
 
         LazyColumn(modifier = Modifier.padding(16.dp).height(300.dp)) {
             items(priser) { pris ->
@@ -140,7 +162,7 @@ fun GrafOversigt(viewModel: MinStroemViewModel = viewModel()) {
                     Text(text = pris.farve.toString(), style = MaterialTheme.typography.bodyMedium)
                 }
             }
-        }
+        }*/
 
 }
 
@@ -163,10 +185,10 @@ fun ApparatOversigt(viewModel: ApparatViewModel = viewModel()) {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
                 modifier = Modifier
-                    .width(330.dp)
+                    .width(350.dp)
                     .height(340.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                horizontalArrangement = Arrangement.spacedBy(20.dp),
             ) {
                 items(apparater) { apparat ->
                     Column(
