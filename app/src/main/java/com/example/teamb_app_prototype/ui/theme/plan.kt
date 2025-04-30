@@ -2,6 +2,7 @@ package com.example.teamb_app_prototype.ui.theme
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,13 +17,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -48,7 +46,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.teamb_app_prototype.R
-import com.example.teamb_app_prototype.ui.theme.TeambappprototypeTheme
 import kotlinx.coroutines.launch
 
 
@@ -75,7 +72,7 @@ fun PlanlaegOvnScreen(modifier: Modifier = Modifier) {
     var natText by remember { mutableStateOf("Vis tider om natten") }
     var switchState by remember { mutableStateOf(false) }
     var hovedText by remember { mutableStateOf("Billigste tid (-4,1kr) inden kl. 12.00 i morgen:") }
-
+    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -101,7 +98,11 @@ fun PlanlaegOvnScreen(modifier: Modifier = Modifier) {
                     Image(
                         painter = painterResource(R.drawable.arrow), contentDescription = "",
                         modifier = Modifier
-                            .size(30.dp),
+                            .size(30.dp)
+                            .clickable {
+                                (context as? Activity)?.finish()
+                            }
+
                     )
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -163,7 +164,7 @@ fun PlanlaegOvnScreen(modifier: Modifier = Modifier) {
                     checked = switchState,
                     onCheckedChange = { switchState = it },
                     colors = SwitchDefaults.colors(
-                        checkedThumbColor = Color.Blue,
+                        checkedThumbColor = Color.White,
                         uncheckedThumbColor = Color.LightGray,
                     )
                 )
