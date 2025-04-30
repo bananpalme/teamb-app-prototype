@@ -34,11 +34,12 @@ fun TilfoejScreen() {
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
 
-
         Column(
             modifier = Modifier
+                .padding(paddingValues)
                 .fillMaxSize()
                 .padding(16.dp)
+
         ) {
             // Tilbageknap + Overskrift
             Row(verticalAlignment = Alignment.CenterVertically) {
