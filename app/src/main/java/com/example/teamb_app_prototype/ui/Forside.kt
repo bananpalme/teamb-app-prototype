@@ -43,6 +43,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.teamb_app_prototype.R
 import com.example.teamb_app_prototype.viewmodel.MinStroemViewModel
 
+//Lukas
+
 @Composable
 fun Forside(onTilfoejClick: () -> Unit = {}, onApparatClick: () -> Unit = {}) {
     Column(modifier = Modifier

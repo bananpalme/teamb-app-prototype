@@ -4,6 +4,8 @@ import com.example.teamb_app_prototype.data.Apparat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+//Lukas
+
 class ApparatViewModel : ViewModel() {
 
     private val _apparater = MutableStateFlow(
@@ -27,5 +29,3 @@ class ApparatViewModel : ViewModel() {
     )
     val apparater: StateFlow<List<Apparat>> = _apparater
 }
-
-//test

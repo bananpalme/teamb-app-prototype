@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            //Lukas
             val navController = rememberNavController()
             Column {
                 NavHost(navController = navController, startDestination = "forside" ) {

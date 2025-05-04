@@ -4,6 +4,7 @@ import com.example.teamb_app_prototype.viewmodel.MinStroemApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+//Lukas
 
 object RetrofitInstance {
     val api: MinStroemApi by lazy {
@@ -16,4 +17,3 @@ object RetrofitInstance {
 
 }
 
-//test

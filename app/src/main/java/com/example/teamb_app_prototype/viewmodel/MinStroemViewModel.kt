@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+//Lukas
 
 class MinStroemViewModel : ViewModel() {
     private val _strømpriser = MutableStateFlow<List<MinStroem>>(emptyList())
@@ -28,5 +29,3 @@ class MinStroemViewModel : ViewModel() {
         }
     }
 }
-
-//test
